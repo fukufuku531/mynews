@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\NewsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,14 +17,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('news/create', 'Admin\NewsController@add');
-});
+Route::get('/admin/news/create',
+[NewsController::class, 'add']);
 
-Route::group (['prefix' => 'admin'], function() {
-    Route::get('profile/create',
-'Admin\ProfileController@add');
-    Route::get('profile/edit',
-'Admin\ProfileController@edit');
+// Route::group (['prefix' => 'admin'], function() {
+//     Route::get('profile/create',
+// 'Admin\ProfileController@add');
+//     Route::get('profile/edit',
+// 'Admin\ProfileController@edit');
     
-});
+// });
