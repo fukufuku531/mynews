@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\NewsController;
+use App\Http\Controllers\Admin\ProfileController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,8 +19,21 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/admin/news/create',
-[NewsController::class, 'add']);
+//Route::get('/admin/news/create', [NewsController::class, 'add']);
+
+//Route::get('/admin/profile/create', [ProfileController::class, 'add']);
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', ],function (){
+            Route::get('news/create',[NewsController::class,'add']);
+ });
+
+Route::group(['middleware' => ['auth'], 'prefix' => 'admin', ],function (){
+            Route::get('profile/create',[ProfileController::class,'add']);
+ });
+ 
+ Route::group(['middleware' => ['auth'], 'prefix' => 'admin', ],function (){
+            Route::get('profile/edit',[ProfileController::class,'edit']);
+ });
 
 // Route::group (['prefix' => 'admin'], function() {
 //     Route::get('profile/create',
@@ -27,3 +42,7 @@ Route::get('/admin/news/create',
 // 'Admin\ProfileController@edit');
     
 // });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
