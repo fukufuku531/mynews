@@ -25,14 +25,17 @@ Route::get('/', function () {
 
 Route::group(['middleware' => ['auth'], 'prefix' => 'admin', ],function (){
             Route::get('news/create',[NewsController::class,'add']);
- });
-
-Route::group(['middleware' => ['auth'], 'prefix' => 'admin', ],function (){
-            Route::get('profile/create',[ProfileController::class,'add']);
- });
  
- Route::group(['middleware' => ['auth'], 'prefix' => 'admin', ],function (){
+            Route::post('news/create',[NewsController::class,'create'])->name('post.news');
+
+            Route::get('profile/create',[ProfileController::class,'add']);
+            
+            Route::post('profile/create',[ProfileController::class,'create'])->name('post.profile');
+
             Route::get('profile/edit',[ProfileController::class,'edit']);
+            
+            Route::post('profile/edit',[ProfileController::class,'update']);
+ 
  });
 
 // Route::group (['prefix' => 'admin'], function() {
